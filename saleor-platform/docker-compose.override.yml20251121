@@ -1,0 +1,17 @@
+services:
+  api:
+    ports:
+      - "8001:8000"
+    environment:
+      - DASHBOARD_URL=http://localhost:9001/
+      - ALLOWED_HOSTS=localhost,api,host.docker.internal,47.76.215.70
+  dashboard:
+    ports:
+      - "9001:80"
+    environment:
+      - API_URL=http://localhost:8001/graphql/
+  # keep DB/Redis internal to avoid host port conflicts
+  db:
+    ports: []
+  redis:
+    ports: []

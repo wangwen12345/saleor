@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  saleor-storefront:
+    container_name: saleor-storefront
+    build:
+      dockerfile: Dockerfile
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+      args:
+        NEXT_PUBLIC_SALEOR_API_URL: ${NEXT_PUBLIC_SALEOR_API_URL}
+        NEXT_PUBLIC_STOREFRONT_URL: ${NEXT_PUBLIC_STOREFRONT_URL}
+    restart: always
+    ports:
+      - 3000:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - saleor_network
+
+  # Add more containers below (nginx, postgres, etc.)
+
+networks:
+  saleor_network:
+    external: false
